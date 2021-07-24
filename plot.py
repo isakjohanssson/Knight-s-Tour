@@ -13,5 +13,5 @@ def plot(my_board):
         i, j = square
         plt.text(i, j, '♘', fontsize=20, ha='center', va='center', color='black' if (i - j) % 2 == 0 else 'white')
         plt.draw()
-        #plt.pause(0.5)
+        plt.pause(0.3)
     plt.show()

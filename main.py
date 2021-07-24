@@ -3,8 +3,14 @@ import numpy as np
 import chess as chess
 import plot as plot
 
+def main():
+    start_x = int(input("Starting x-position:"))
+    start_y = int(input("Starting y-position:"))
+    start_position = (start_x, start_y)
 
-start_position = (3,4)
-my_board = chess.chessBoard(size = 8, start_pos=start_position)
-my_board.run()
-plot.plot(my_board)
+    my_board = chess.chessBoard(size = 8, start_pos=start_position)
+    my_board.run()
+    plot.plot(my_board)
+
+if __name__ == '__main__':
+    main()
