@@ -26,11 +26,8 @@ class chessBoard():
         return all([self.squares[square].is_occupied for square in self.squares])
 
     def take_step(self):
-        if self.complete():
-            print('Done')
-            return
-        
-        elif self.current.possible_nexts:
+        if self.current.possible_nexts:
+            # go fwd
             nexts = self.current.possible_nexts
             ordered_nexts = self.order_nexts(nexts)
 
@@ -43,8 +40,6 @@ class chessBoard():
         else:
             self.go_back()
         
-
-
     def go_back(self):
         self.current.leave()
         self.current = self.current.prev
@@ -71,15 +66,13 @@ class chessBoard():
 
         
     def run(self):
-        for i in range(64):
+        while not self.complete():
             self.take_step()
         
     def get_run(self):
         run_list=[]
         square = self.start
-        for i in range(300):
+        while square is not None:
             run_list.append(square.pos)
             square = square.next
-            if square is None:
-                break
         return run_list
