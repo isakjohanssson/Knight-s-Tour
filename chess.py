@@ -13,32 +13,38 @@ class Square():
         self.is_occupied = False
     
 
-class chessBoard():
+class ChessBoard():
     def __init__(self, size, start_pos):
         self.squares = {(pos_x, pos_y): Square(pos_x, pos_y) for pos_x in range(size) for pos_y in range(size)}
         self.start = self.squares[start_pos]
         self.current = self.start
         self.allowed_steps = [(-2,-1), (-2,1), (-1,-2), (-1,2), (1,-2), (1,2), (2,1), (2,-1)]
-        self.current.occupy() #occupy starting pos
-        self.current.possible_nexts = self.order_nexts(self.find_nexts())
+
+        #occupy starting pos and set the next possible steps
+        self.current.occupy() 
+        self.current.possible_nexts = self.order_nexts(self.find_nexts()) 
 
     def complete(self):
         return all([self.squares[square].is_occupied for square in self.squares])
 
     def take_step(self):
         if self.current.possible_nexts:
-            # go fwd
-            nexts = self.current.possible_nexts
-            ordered_nexts = self.order_nexts(nexts)
-
-            next_square = ordered_nexts[0]
-            self.current.next = next_square
-            next_square.prev = self.current
-            self.current = next_square
-            self.current.occupy()
-            self.current.possible_nexts = self.order_nexts(self.find_nexts(next_square.pos))
+            self.go_fwd()
         else:
             self.go_back()
+        return
+    
+    def go_fwd(self):
+        nexts = self.current.possible_nexts
+        ordered_nexts = self.order_nexts(nexts)
+
+        next_square = ordered_nexts[0]
+        self.current.next = next_square
+        next_square.prev = self.current
+        self.current = next_square
+        self.current.occupy()
+        self.current.possible_nexts = self.order_nexts(self.find_nexts(next_square.pos))
+        return
         
     def go_back(self):
         self.current.leave()
@@ -46,6 +52,7 @@ class chessBoard():
         self.current.next = None
         if self.current.possible_nexts:
             self.current.possible_nexts.pop(0)
+        return
     
     def find_nexts(self, regr_square=False):
         nexts = []
@@ -68,6 +75,7 @@ class chessBoard():
     def run(self):
         while not self.complete():
             self.take_step()
+        return
         
     def get_run(self):
         run_list=[]
