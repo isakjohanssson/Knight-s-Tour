@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import chess as chess
 import plot as plot
 

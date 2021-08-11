@@ -12,7 +12,6 @@ class Square():
     def leave(self):
         self.is_occupied = False
     
-
 class ChessBoard():
     def __init__(self, size, start_pos):
         self.squares = {(pos_x, pos_y): Square(pos_x, pos_y) for pos_x in range(size) for pos_y in range(size)}
@@ -71,7 +70,6 @@ class ChessBoard():
         d_next_to_next_nexts = {next: self.find_nexts(next.pos) for next in nexts}
         return sorted(d_next_to_next_nexts, key=lambda k: len(d_next_to_next_nexts[k]), reverse=False)
 
-        
     def run(self):
         while not self.complete():
             self.take_step()
